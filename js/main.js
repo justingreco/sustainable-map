@@ -33,6 +33,9 @@ function createLegend () {
 		$('#categories').val($('span', this).text());
 		categoryChanged($('span', this).text());
 	});
+	window.setTimeout(function () {
+		$("#map").height($("#leftPanel").height() - 20);
+	}, 1000);
 }
 
 function getPopup (props) {
@@ -240,6 +243,10 @@ function setTypeahead () {
 			header: "<h5>Addresses</h5>"
 		}}).on("typeahead:selected", typeaheadSelected);
 }
+
+$(window).resize(function () {
+	$("#map").height($("#leftPanel").height() - 20);
+});
 
 $(document).ready(function (){
 	//createMap();
