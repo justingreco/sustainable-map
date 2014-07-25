@@ -129,7 +129,7 @@ function findFeature (name) {
 	pts.query().where("NAME = '" + name + "'").run(function (error, collection) {
 		console.log(collection);
 		if (collection.features.length > 0) {
-			map.setView(collection.features[0].geometry.coordinates.reverse(), 17);
+			map.setView(collection.features[0].geometry.coordinates.reverse(), 16);
 			collection.openPopup();
 		}
 	});
