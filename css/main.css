@@ -35,7 +35,7 @@
 .header img{
 	max-height: 80px;
 	margin-top: 20px;
-	
+
 	-webkit-filter: drop-shadow(1px 1px 5px #333);
 	filter: drop-shadow(1px 1px 5px #333);
 }
@@ -53,4 +53,50 @@
 .jumbotron span {
 	font-size: 10pt;
 	max-width: 100px;
+}
+
+.leaflet-popup {
+	min-width: 230px;
+	max-width: 230px;
+}
+
+.leaflet-popup-content img {
+	max-width: 200px !important;
+}
+
+.leaflet-popup-content hr {
+	margin-top: 4px;
+	margin-bottom: 6px;
+}
+
+.navbar-default a{
+	color: #428bca !important;
+}
+
+.icon-bar {
+	background-color: #428bca !important;
+}
+
+.navbar-toggle {
+	border-color: #428bca !important;
+}
+
+.legend-item {
+	font-size: 9pt;
+	cursor: pointer;
+}
+
+.legend-item img {
+	margin-right: 10px;
+}
+
+.table tr {
+	cursor: pointer;
+}
+.container {
+	width: 90%;
+}
+
+.footer {
+	margin-top: 40px;
 }

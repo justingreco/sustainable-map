@@ -8,10 +8,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    	<link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.css' rel='stylesheet' />
+    	<link rel="stylesheet" type="text/css" href="css/typeahead.css">
 		<link rel="stylesheet" type="text/css" href="css/main.css"/>
 		</head>
 	<body>
-		<header class="navbar navbar-fixed-top" role="banner">
+		<header class="navbar navbar-default navbar-fixed-top" role="banner">
   		<div class="container">
   			<div class="navbar-header">
 		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
@@ -55,33 +57,64 @@
 		<div class="jumbotron visible-xs">
 			<div class="row">
 				<div class="col-sm-12">
-				<h4>UDO Zoning Remapping</h4>
-				<span>Compare the current zoning with the proposed UDO zoning.</span>
+			        <h4>Sustainable Projects</h4>
+			        <span>View sustainable projects in the City of Raleigh.</span>
 				</div>
 			</div>
 		</div>
   	<div class="container">
   		<div class="row">
   			<div class="col-sm-4">
+  				<p class="lead">Search</p>
+  				<input class="form-control typeahead" type="text" placeholder="Enter an address"/>
+  				<p/>
+  			  	<p class="lead">Filter</p>
   				<select id="categories" class="form-control"><option>All Categories</option></select>
-  				<div id="listContainer">
-	  				<table id="list" class='table table-hover'>
-	  					<thead><th>Name</th><th>Category</th></thead>
-	  					<tbody></tbody>
-	  				</table>
-  				</div>
-
+  				<p/>
+  				<p class="lead">Legend</p>
+  				<div id="legend"></div>
+  				<p/>
   			</div>
   			<div class="col-sm-8">
   				<div id="map"></div>
   			</div>
   		</div>
+  		<br/>
+  		<div class="row">  				
+  			<div id="listContainer">
+				<table id="list" class='table table-hover'>
+					<thead><th>Name</th><th>Category</th></thead>
+					<tbody></tbody>
+				</table>
+  			</div>
+  		</div>
+  		    
+
   	</div>
-  	</div>
+  	<div class="footer well col-xs-12">
+      <div class="row">
+        <div class="col-md-3">
+					<center><a href="http://www.raleighnc.gov/home/content/AdminServSustain/Articles/WhatRaleighIsDoing.html" target="_blank"><img src="http://www.raleighnc.gov/content/AdminServSustain/Images/SustainableLogo.jpg" style="height:100px;" alt="Raleigh UDO Logo"/></a></center>
+        </div>
+        <div class="col-md-6">
+          <center>
+            <p>Application developed by the City of Raleigh <a href="http://www.raleighnc.gov/business/content/ITechAdmin/Articles/GeographicInformationServices.html" target="_blank">Geographic Information Services</a> division.</p>
+            <p>Application developed for the City of Raleigh <a href="http://www.raleighnc.gov/home/content/AdminServSustain/Articles/WhatRaleighIsDoing.html" target="_blank">Office of Sustainability</a>.</p>
+            <p>&copy; 2014</p>
+          </center>
+        </div>
+        <div class="col-md-3">
+         <center><a href="http://www.raleighnc.gov" target="_blank"><img src="img/City-seal-BW.png" alt="Official City of Raleigh Seal"/></a></center>
+        </div>
+      </div>
+  	</div>  	
 		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/typeahead.bundle.min.js"></script>
 		<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 	    <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+    	<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js'></script>
 		<script src="js/main.js"></script>
+
 	</body>
 </html>
