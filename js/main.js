@@ -87,20 +87,19 @@ function createMap() {
 		var content = $(e.popup.getContent());
 		$(":contains('null')", content).parent().remove();
 		
+		$('img', content).load(function () {
+			e.popup.update();
+		});
+
 		$('img', content).error(function () {
 			this.src = 'http://maps.raleighnc.gov/photos/Sustainable/sustainable.jpg';
 			e.popup.setContent('<div>'+content.html()+'</div>');
 		});
 
 
+
 		e.popup.setContent('<div>'+content.html()+'</div>');
 
-	// 	var content = $(e.popup.getContent());
-	// 	$(content[4]).error(function () {
-	// 		var newContent = 
-	// 		$(content[4]).prop('src', 'http://maps.raleighnc.gov/photos/Sustainable/sustainable.jpg');
-	// 		e.popup.setContent(content[0].outerHTML+content[1].outerHTML+content[2].outerHTML+content[3].outerHTML+content[4].outerHTML);
-	// 	});
 	});
 
 
