@@ -28,7 +28,6 @@ function createLegend () {
 		}
 		cnt += 1;
 	});
-
 	$('.legend-item').click(function () {
 		$('#categories').val($('span', this).text());
 		categoryChanged($('span', this).text());
@@ -61,48 +60,36 @@ function createMap() {
 	L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer').addTo(base);
 	L.esri.basemapLayer('Imagery').addTo(aerials);
 	L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer').addTo(aerials);
-
 	L.control.layers({"Streets": base, "Aerials": aerials}).addTo(map);
-
 	pts = new L.esri.FeatureLayer('http://maps.raleighnc.gov/arcgis/rest/services/Sustainable/MapServer/0',
 		{pointToLayer: function (geojson, latlng) {
 			return L.marker(latlng, {
 				icon: icons[geojson.properties.CATEGORY]
 			});
-		},
-		onEachFeature: function (feature, layer) {
-			//layer.bindPopup(getPopup(feature.properties));
-		}
-	}).addTo(map);
+		}}).addTo(map);
 	pts.on('load', function () {
 		populateTable();
 	});
-
-	var template = '<div><h5>{NAME}</h5><hr><div><strong>Location:</strong> <span>{LOCATION}</span></div><div><strong>Certification:</strong> <span>{CERTIFICATION}</span></div><a href="{URL}" target="_blank">Website</a><br/><img src="http://maps.raleighnc.gov/Photos/Sustainable/{CATEGORY}/{NAME}.jpg"/></div>';
+	var template = '<div><h5>{NAME}</h5><hr><div><strong>Location:</strong> <span>{LOCATION}</span></div><div><strong>Size:</strong> <span>{SIZE_}</span></div><div><strong>Output:</strong> <span>{OUTPUT}</span></div><div><strong>Certification:</strong> <span>{CERTIFICATION}</span></div><a href="{URL}" target="_blank">Website</a><br/><img src="http://maps.raleighnc.gov/Photos/Sustainable/{CATEGORY}/{NAME}.jpg"/></div>';
 	pts.bindPopup(function (feature) {
 		return L.Util.template(template, feature.properties);
 	});
-
 	pts.on('popupopen', function (e) {
 		var content = $(e.popup.getContent());
 		$(":contains('null')", content).parent().remove();
-		
+		$('a[href="null"]', content).remove();
 		$('img', content).load(function () {
 			e.popup.update();
 		});
-
 		$('img', content).error(function () {
 			this.src = 'http://maps.raleighnc.gov/photos/Sustainable/sustainable.jpg';
+			if (e.layer.feature.properties.CATEGORY === 'Big Belly Solar Trash Compactors') {
+				this.src = 'http://maps.raleighnc.gov/photos/Sustainable/Big Belly Solar Trash Compactors/BigBelly.jpg';
+			}
 			e.popup.setContent('<div>'+content.html()+'</div>');
 		});
-
-
-
 		e.popup.setContent('<div>'+content.html()+'</div>');
-
 	});
-
-
 	L.control.locate().addTo(map);
 }
 
@@ -156,7 +143,6 @@ function populateTable () {
 		if ($("#categories option:selected").val() != 'All Categories') {
 			if (layer.feature.properties.CATEGORY === $("#categories option:selected").val()) {
 					data.push({name: layer.feature.properties.NAME, category: layer.feature.properties.CATEGORY});
-
 			}
 		} else {
 			data.push({name: layer.feature.properties.NAME, category: layer.feature.properties.CATEGORY});
@@ -166,7 +152,6 @@ function populateTable () {
 	$.each(data, function (i, d) {
 		body.append('<tr><td>' + d.name + '</td><td>' + d.category + '</td></tr>');
 	});
-
 	$("#list tbody").off('click', 'tr');
 	$("#list tbody").on ('click', 'tr', function () {
 		findFeature($('td:first', this).text());
@@ -174,12 +159,12 @@ function populateTable () {
 }
 
 function categoryChanged (category) {
-		populateTable();
-		if (category != "All Categories") {
-			pts.setWhere("CATEGORY = '" + category + "'");
-		} else {
-			pts.setWhere("1=1");
-		}
+	populateTable();
+	if (category != "All Categories") {
+		pts.setWhere("CATEGORY = '" + category + "'");
+	} else {
+		pts.setWhere("1=1");
+	}
 }
 
 function addressFilter (resp) {
@@ -197,7 +182,7 @@ function typeaheadSelected (obj, data, dataset) {
 	if (dataset === "Addresses") {
 		url = "http://mapstest.raleighnc.gov/arcgis/rest/services/Addresses/MapServer/0/query";
 		field = "ADDRESS";
-	} 
+	}
 	$.ajax({
 		url: url,
 		type: 'GET',
@@ -214,18 +199,15 @@ function typeaheadSelected (obj, data, dataset) {
 			if (data.geometryType === "esriGeometryPoint") {
 				geom = L.latLng(data.features[0].geometry.y, data.features[0].geometry.x);
 				var marker = new L.marker(geom);
-				//selection.clearLayers();
-				//selection.addLayer(marker);
 				map.setView(geom, 16);
-			} 
+			}
 		}
-
 	});
 }
 
 function checkAbbreviations (value) {
-	var abbreviations = [{full: "Saint ", abbr: "St "}, 
-	{full: "North ", abbr:"N "}, 
+	var abbreviations = [{full: "Saint ", abbr: "St "},
+	{full: "North ", abbr:"N "},
 	{full: "South ", abbr: "S "},
 	{full: "West ", abbr:"W "},
 	{full: "East ", abbr: "E "},
@@ -253,11 +235,10 @@ function setTypeahead () {
 			}
 		}
 	});
-
 	addresses.initialize();
-	$(".typeahead").typeahead({hint: true, highlight: true, minLength: 1}, 
-		{name:'Addresses', 
-		displayKey:'value', 
+	$(".typeahead").typeahead({hint: true, highlight: true, minLength: 1},
+		{name:'Addresses',
+		displayKey:'value',
 		source:addresses.ttAdapter(),
 		templates: {
 			header: "<h5>Addresses</h5>"
@@ -269,11 +250,9 @@ $(window).resize(function () {
 });
 
 $(document).ready(function (){
-	//createMap();
 	setTypeahead();
 	getSymbols();
 	$('#categories').change(function () {
 		categoryChanged($('option:selected', this).val());
 	});
-
 });
