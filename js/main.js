@@ -53,15 +53,16 @@ function getPopup (props) {
 }
 
 function createMap() {
-	map = L.map('map').setView([35.7806, -78.6389], 9);
+	map = L.map('map', {maxZoom: 16, minZoom: 10}).setView([35.7806, -78.6389], 10);
 	var base = L.layerGroup().addTo(map),
-		aerials = L.layerGroup();
+		aerials = L.layerGroup(),
+		markers = L.MarkerClusterGroup();
 	L.esri.basemapLayer('Gray').addTo(base);
 	L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer').addTo(base);
 	L.esri.basemapLayer('Imagery').addTo(aerials);
 	L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer').addTo(aerials);
 	L.control.layers({"Streets": base, "Aerials": aerials}).addTo(map);
-	pts = new L.esri.FeatureLayer('http://maps.raleighnc.gov/arcgis/rest/services/Sustainable/MapServer/0',
+	pts = new L.esri.ClusteredFeatureLayer('http://maps.raleighnc.gov/arcgis/rest/services/Sustainable/MapServer/0',
 		{pointToLayer: function (geojson, latlng) {
 			return L.marker(latlng, {
 				icon: icons[geojson.properties.CATEGORY]
