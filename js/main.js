@@ -72,7 +72,7 @@ function createMap() {
 	pts.on('load', function () {
 		populateTable();
 	});
-	var template = '<div><h5>{NAME}</h5><hr><div><strong>Location:</strong> <span>{LOCATION}</span></div><div><strong>Size:</strong> <span>{SIZE_}</span></div><div><strong>Output:</strong> <span>{OUTPUT}</span></div><div><strong>Certification:</strong> <span>{CERTIFICATION}</span></div><a href="{URL}" target="_blank">Website</a><br/><img src="http://maps.raleighnc.gov/Photos/Sustainable/{CATEGORY}/{NAME}.jpg"/></div>';
+	var template = '<div><h5>{NAME}</h5><hr><div><strong>Location:</strong> <span>{LOCATION}</span></div><div><strong>Size:</strong> <span>{SIZE_}</span></div><div><strong>Description:</strong> <span>{OUTPUT}</span></div><div><strong>Certification:</strong> <span>{CERTIFICATION}</span></div><a href="{URL}" target="_blank">Website</a><br/><img src="http://maps.raleighnc.gov/Photos/Sustainable/{CATEGORY}/{NAME}.jpg"/></div>';
 	pts.bindPopup(function (feature) {	
 		return L.Util.template(template, feature.properties);
 	});
