@@ -78,6 +78,10 @@ function createMap() {
 	});
 	pts.on('popupopen', function (e) {
 		var content = $(e.popup.getContent());
+
+		$('span', content).filter(function () {
+			return $(this).text().trim().length === 0;
+		}).parent().remove();
 		$(":contains('null')", content).parent().remove();
 		$('a[href="null"]', content).remove();
 		$('img', content).load(function () {
