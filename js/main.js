@@ -173,11 +173,25 @@ function addressFilter (resp) {
 	return data;
 }
 
+
+function streetsFilter (resp) {
+	var data = []
+	if (resp.features.length > 0) {
+		$(resp.features).each(function (i, f) {
+			data.push({value:f.attributes['CARTONAME']});
+		});
+	}
+	return data;
+}
+
 function typeaheadSelected (obj, data, dataset) {
 	var url = "", field = "";
 	if (dataset === "Addresses") {
 		url = "http://mapstest.raleighnc.gov/arcgis/rest/services/Addresses/MapServer/0/query";
 		field = "ADDRESS";
+	} else if (dataset === "Streets") {
+		url = "http://maps.raleighnc.gov/arcgis/rest/services/StreetsDissolved/MapServer/0/query";
+		field = "CARTONAME";		
 	}
 	$.ajax({
 		url: url,
@@ -196,6 +210,19 @@ function typeaheadSelected (obj, data, dataset) {
 				geom = L.latLng(data.features[0].geometry.y, data.features[0].geometry.x);
 				var marker = new L.marker(geom);
 				map.setView(geom, 16);
+			} else {
+				var paths = [];
+				if (data.features.length > 0) {
+					$.each(data.features[0].geometry.paths, function (i, path) {
+						var arr = [];
+						$.each(path, function (i, p) {
+							arr.push(L.latLng(p[1], p[0]));
+						});
+						paths.push(arr);
+					});
+					var pl = L.multiPolyline(paths);
+					map.fitBounds(pl.getBounds());
+				}
 			}
 		}
 	});
@@ -232,12 +259,33 @@ function setTypeahead () {
 		}
 	});
 	addresses.initialize();
+	var streets = new Bloodhound({
+		datumTokenizer: function (datum) {
+	        return Bloodhound.tokenizers.whitespace(datum.value);
+	    },
+	    queryTokenizer: Bloodhound.tokenizers.whitespace,
+		remote: {
+			url: "http://maps.raleighnc.gov/arcgis/rest/services/StreetsDissolved/MapServer/0/query?orderByFields=CARTONAME&returnGeometry=false&outFields=CARTONAME&returnDistinctValues=false&f=pjson",
+			filter: streetsFilter,
+			replace: function(url, uriEncodedQuery) {
+			      var newUrl = url + '&where=CARTONAME like ' + "'" + uriEncodedQuery.toUpperCase() +"%'";
+			      return newUrl;
+			}
+		}
+	});
+	streets.initialize();	
 	$(".typeahead").typeahead({hint: true, highlight: true, minLength: 1},
 		{name:'Addresses',
 		displayKey:'value',
 		source:addresses.ttAdapter(),
 		templates: {
 			header: "<h5>Addresses</h5>"
+		}},
+		{name:'Streets',
+		displayKey:'value',
+		source:streets.ttAdapter(),
+		templates: {
+			header: "<h5>Streets</h5>"
 		}}).on("typeahead:selected", typeaheadSelected);
 }
 
