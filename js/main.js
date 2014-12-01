@@ -124,18 +124,11 @@ function findFeature (name) {
 }
 
 function sortTableData (a, b) {
-	var c1 = a.category,
-		c2 = b.category,
-		n1 = a.name,
+	var n1 = a.name,
 		n2 = b.name;
-		if (c1 != c2) {
-		    if (c1 < c2) return -1;
-		    if (c1 > c2) return 1;
-		    return 0;
-		  }
-		  if (n1 < n2) return -1;
-		  if (n1 > n2) return 1;
-		  return 0;
+	if (n1 < n2) return -1;
+	if (n1 > n2) return 1;
+	return 0;
 }
 
 function populateTable () {
