@@ -258,6 +258,10 @@ function setTypeahead () {
 	    queryTokenizer: Bloodhound.tokenizers.whitespace,
 		remote: {
 			url: "http://mapstest.raleighnc.gov/arcgis/rest/services/Addresses/MapServer/0/query?orderByFields=ADDRESS&returnGeometry=false&outFields=ADDRESS&returnDistinctValues=false&f=pjson",
+            ajax: {
+                type: "GET",
+                dataType: "jsonp"
+            },   			
 			filter: addressFilter,
 			replace: function(url, uriEncodedQuery) {
 			      var newUrl = url + '&where=ADDRESSU like ' + "'" + checkAbbreviations(uriEncodedQuery).toUpperCase() +"%'";
@@ -273,6 +277,10 @@ function setTypeahead () {
 	    queryTokenizer: Bloodhound.tokenizers.whitespace,
 		remote: {
 			url: "http://maps.raleighnc.gov/arcgis/rest/services/StreetsDissolved/MapServer/0/query?orderByFields=CARTONAME&returnGeometry=false&outFields=CARTONAME&returnDistinctValues=false&f=pjson",
+            ajax: {
+                type: "GET",
+                dataType: "jsonp"
+            },   			
 			filter: streetsFilter,
 			replace: function(url, uriEncodedQuery) {
 			      var newUrl = url + '&where=CARTONAME like ' + "'" + uriEncodedQuery.toUpperCase() +"%'";
