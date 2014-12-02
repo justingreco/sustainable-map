@@ -3,6 +3,18 @@ html, body {
 	-webkit-overflow-scrolling: touch;
 }
 
+.warning-ie7 {
+	position:absolute;
+	background-color:#444;
+	color:white;
+	top:0;
+	bottom: 0;
+	left:0;
+	right:0;
+	z-index:10000;
+	padding: 40px;
+}
+
 #map {
 	height: 535px;
 }
