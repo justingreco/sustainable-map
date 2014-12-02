@@ -3,6 +3,10 @@ html, body {
 	-webkit-overflow-scrolling: touch;
 }
 
+.lt-ie9 {
+	overflow: none;
+}
+
 .warning-ie7 {
 	position:absolute;
 	background-color:#444;
