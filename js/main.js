@@ -122,7 +122,7 @@ function findFeature (name) {
 		console.log(collection);
 		if (collection.features.length > 0) {
 			map.setView(collection.features[0].geometry.coordinates.reverse(), 16);
-			collection.openPopup();
+			//collection.openPopup();
 		}
 	});
 }
@@ -158,13 +158,14 @@ function populateTable () {
 }
 
 function categoryChanged (category) {
+	map.setView([35.7806, -78.6389], 10);
 	populateTable();
 	if (category != "All Categories") {
 		pts.setWhere("CATEGORY = '" + category + "'");
 	} else {
 		pts.setWhere("1=1");
 	}
-	map.setView([35.7806, -78.6389], 10);
+	
 }
 
 function addressFilter (resp) {
