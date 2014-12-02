@@ -309,9 +309,11 @@ $(window).resize(function () {
 });
 
 $(document).ready(function (){
-	setTypeahead();
-	getSymbols();
-	$('#categories').change(function () {
-		categoryChanged($('option:selected', this).val());
-	});
+	if (!$('html').hasClass('lt-ie9')) {
+		setTypeahead();
+		getSymbols();
+		$('#categories').change(function () {
+			categoryChanged($('option:selected', this).val());
+		});		
+	}
 });
