@@ -203,8 +203,8 @@ function typeaheadSelected (obj, data, dataset) {
 	$.ajax({
 		url: url,
 		type: 'GET',
-		dataType: 'json',
-		data: {f: 'json',
+		dataType: 'jsonp',
+		data: {f: 'pjson',
 			where: field + " = '" + data.value + "'",
 			returnGeometry: true,
 			outSR: 4326
