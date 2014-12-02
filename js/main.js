@@ -78,7 +78,9 @@ function createMap() {
 	});
 	pts.on('popupopen', function (e) {
 		var content = $(e.popup.getContent());
-
+		$('a', content).filter(function () {
+			return $(this).attr('href').trim().length === 0;
+		}).remove();
 		$('span', content).filter(function () {
 			return $(this).text().trim().length === 0;
 		}).parent().remove();
