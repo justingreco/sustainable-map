@@ -74,7 +74,7 @@ function createMap() {
 	});
 	
 	//var template = '<div><h5>{NAME}</h5><hr><div><strong>Location:</strong> <span>{LOCATION}</span></div><div><strong>Size:</strong> <span>{SIZE_}</span></div><div><strong>Description:</strong> <span>{OUTPUT}</span></div><div><strong>Certification:</strong> <span>{CERTIFICATION}</span></div><a href="{URL}" target="_blank">Website</a><br/><img src="http://maps.raleighnc.gov/Photos/Sustainable/{CATEGORY}/{NAME}.jpg"/></div>';
-	var template = '<div><h5>{NAME}</h5><hr><div><strong>Location:</strong> <span>{LOCATION}</span></div><div><strong>Size:</strong> <span>{SIZE_}</span></div><div><strong>Description:</strong> <span>{OUTPUT}</span></div><div><strong>Certification:</strong> <span>{CERTIFICATION}</span></div><a href="{URL}" target="_blank">Website</a><br/><img style="display:none;" src="http://maps.raleighnc.gov/photos/Sustainable/sustainable.jpg"/></div>';
+	var template = '<div><h5>{NAME}</h5><hr><div><strong>Location:</strong> <span>{LOCATION}</span></div><div><strong>Size:</strong> <span>{SIZE_}</span></div><div><strong>Description:</strong> <span>{OUTPUT}</span></div><div><strong>Certification:</strong> <span>{CERTIFICATION}</span></div><a href="{URL}" target="_blank">Website</a><br/><img style="visibility:hidden;" src="http://maps.raleighnc.gov/photos/Sustainable/sustainable.jpg"/></div>';
 	
 	pts.bindPopup(function (feature) {	
 		return L.Util.template(template, feature.properties);
@@ -106,7 +106,7 @@ function createMap() {
 				var src = 'http://maps.raleighnc.gov/arcgis/rest/services/Sustainable/MapServer/0/'+id+'/attachments/'+data.attachmentInfos[0].id+'/'+id;
 				$('img', content).attr('src', src);
 			}
-			$('img', content).css('display', 'block');
+			$('img', content).css('visibility', 'visible');
 			e.popup.setContent('<div>'+content.html()+'</div>');
 		});
 		
