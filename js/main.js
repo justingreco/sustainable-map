@@ -120,11 +120,14 @@ function getSymbols () {
 }
 
 function findFeature (name) {
+	name = name.replace("'", "''");
 	pts.query().where("NAME = '" + name + "'").run(function (error, collection) {
 		console.log(collection);
 		if (collection.features.length > 0) {
-			map.setView(collection.features[0].geometry.coordinates.reverse(), 16);
-			//collection.openPopup();
+			var f = collection.features[0];
+			map.setView(f.geometry.coordinates.reverse(), 16);
+			var pt = pts.getFeature(f.properties.OBJECTID);
+			pt.openPopup();
 		}
 	});
 }
