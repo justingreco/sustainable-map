@@ -110,9 +110,6 @@ function createMap() {
 			e.popup.setContent('<div>'+content.html()+'</div>');
 		});
 		
-
-
-
 		$('img', content).error(function () {
 			this.src = 'http://maps.raleighnc.gov/photos/Sustainable/sustainable.jpg';
 			if (e.layer.feature.properties.CATEGORY === 'Big Belly Solar Trash Compactors') {
@@ -194,7 +191,6 @@ function categoryChanged (category) {
 	} else {
 		pts.setWhere("1=1");
 	}
-	
 }
 
 function addressFilter (resp) {
