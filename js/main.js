@@ -288,7 +288,7 @@ function setTypeahead () {
 			filter: addressFilter,
 			replace: function(url, uriEncodedQuery) {
 			      var newUrl = url + '&where=ADDRESSU like ' + "'" + checkAbbreviations(uriEncodedQuery).toUpperCase() +"%'";
-			      return newUrl;
+			      return encodeURI(newUrl);
 			}
 		}
 	});
@@ -307,7 +307,7 @@ function setTypeahead () {
 			filter: streetsFilter,
 			replace: function(url, uriEncodedQuery) {
 			      var newUrl = url + '&where=CARTONAME like ' + "'" + uriEncodedQuery.toUpperCase() +"%'";
-			      return newUrl;
+			      return encodeURI(newUrl);
 			}
 		}
 	});
